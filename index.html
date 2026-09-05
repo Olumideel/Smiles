@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AjoVault — Nigeria's Trust Layer for Money</title>
+<meta name="description" content="Digital Ajo circles, settlement tracking, dispute resolution, and merchant tools built for Nigeria."/>
+<meta property="og:title" content="AjoVault — Nigeria's Trust Layer for Money"/>
+<meta property="og:description" content="Save together. Get paid on time. Resolve disputes. Sell globally."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#0a1628"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0a1628;--ink2:#0f1e38;
+  --gold:#e8b84b;--gold2:#f5d07a;--gold3:#7a5c10;
+  --green:#1db86a;--green2:#0d7a43;
+  --red:#e84b4b;--blue:#4b8be8;--purple:#9b4be8;
+  --surface:#111d35;--surface2:#1a2d4a;--surface3:#243657;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --text:#e8edf5;--muted:#7a8fad;--faint:#2a3d5a;
+  --ff:'Syne',sans-serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r:10px;--rl:16px;--rx:22px;
+  --sh:0 4px 24px rgba(0,0,0,.45);--sx:0 12px 48px rgba(0,0,0,.65);
+  --t:.2s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--ink);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}ul{list-style:none;}
+button{font-family:var(--fb);cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:var(--fb);}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;}
+img{display:block;}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;}
+.h1{font-family:var(--ff);font-size:clamp(42px,7vw,86px);font-weight:800;line-height:1.02;letter-spacing:-.03em;}
+.h2{font-family:var(--ff);font-size:clamp(28px,4vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.02em;}
+.h3{font-family:var(--ff);font-size:clamp(18px,2.5vw,26px);font-weight:700;}
+.lead{font-size:clamp(16px,2vw,19px);color:var(--muted);line-height:1.7;}
+.body{font-size:14px;color:var(--muted);line-height:1.65;}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-size:14px;font-weight:600;transition:all var(--t);cursor:pointer;border:none;white-space:nowrap;}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 2px 16px rgba(232,184,75,.3);}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 6px 28px rgba(232,184,75,.5);}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border2);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:var(--green2);transform:translateY(-2px);}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--surface3);border-color:var(--border2);}
+.btn-red{background:rgba(232,75,75,.15);color:var(--red);border:1px solid rgba(232,75,75,.25);}
+.btn-red:hover{background:rgba(232,75,75,.25);}
+.btn-sm{padding:8px 16px;font-size:13px;}
+.btn-lg{padding:15px 34px;font-size:16px;}
+.btn-full{width:100%;justify-content:center;}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+.rv.vis{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background var(--t),border-color var(--t);}
+#nav.sc{background:rgba(10,22,40,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.ni{display:flex;align-items:center;height:64px;gap:20px;}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:auto;}
+.lmark{width:34px;height:34px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.lname{font-family:var(--ff);font-size:19px;font-weight:800;letter-spacing:-.02em;}
+.lname span{color:var(--gold);}
+.nlinks{display:flex;gap:2px;}
+.nlinks a{padding:7px 12px;font-size:13px;font-weight:500;color:var(--muted);border-radius:8px;transition:all var(--t);}
+.nlinks a:hover,.nlinks a.on{color:var(--text);background:var(--surface);}
+.ncta{display:flex;gap:8px;flex-shrink:0;}
+.nav-icons{display:flex;gap:6px;align-items:center;}
+.nib{position:relative;width:34px;height:34px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:all var(--t);}
+.nib:hover{background:var(--surface2);border-color:var(--border2);}
+.nbadge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--gold);color:var(--ink);border-radius:50%;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);}
+.ham{display:none;flex-direction:column;gap:5px;padding:7px;margin-left:auto;}
+.ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .28s;}
+.ham.op span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ham.op span:nth-child(2){opacity:0;}
+.ham.op span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+#mm{display:none;flex-direction:column;background:var(--ink2);border-top:1px solid var(--border);padding:10px 18px 18px;gap:2px;}
+#mm.op{display:flex;}
+#mm a{display:block;padding:10px 12px;font-size:14px;font-weight:500;color:var(--muted);border-radius:8px;}
+#mm a:hover{color:var(--text);background:var(--surface);}
+#mm .btn{margin-top:8px;width:100%;justify-content:center;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden;}
+.hbg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 55% at 65% 20%,rgba(232,184,75,.07),transparent 70%),
+  radial-gradient(ellipse 55% 75% at 5% 85%,rgba(29,184,106,.05),transparent 60%),
+  radial-gradient(ellipse 40% 40% at 90% 80%,rgba(75,139,232,.04),transparent),
+  var(--ink);}
+.hgrid{position:absolute;inset:0;background-image:
+  linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:48px 48px;}
+.hc{position:relative;z-index:1;max-width:720px;}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,184,75,.09);border:1px solid rgba(232,184,75,.22);padding:5px 14px;border-radius:99px;font-size:12px;font-weight:600;color:var(--gold);margin-bottom:24px;letter-spacing:.04em;}
+.hdot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.htitle{margin-bottom:22px;}
+.htitle .acc{color:var(--gold);}
+.hsub{margin-bottom:36px;max-width:540px;}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:64px;}
+.hstats{display:flex;gap:44px;flex-wrap:wrap;padding-top:36px;border-top:1px solid var(--border);}
+.stn{font-family:var(--ff);font-size:34px;font-weight:800;color:var(--gold);letter-spacing:-.02em;}
+.stl{font-size:12px;color:var(--muted);margin-top:2px;font-weight:500;}
+
+/* hero card */
+.hcard{position:absolute;right:0;top:50%;transform:translateY(-50%);width:300px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--rx);padding:22px;box-shadow:var(--sx);z-index:2;}
+.hc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.hc-title{font-size:12px;font-weight:600;color:var(--muted);}
+.hc-live{font-size:10px;font-weight:700;padding:3px 8px;background:rgba(29,184,106,.15);color:var(--green);border-radius:99px;border:1px solid rgba(29,184,106,.25);}
+.hc-ring{position:relative;width:140px;height:80px;margin:0 auto 18px;}
+.hc-ring svg{width:100%;height:100%;}
+.hc-center{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center;}
+.hc-amt{font-family:var(--ff);font-size:22px;font-weight:800;}
+.hc-lbl{font-size:10px;color:var(--muted);}
+.hc-members{display:flex;flex-direction:column;gap:7px;}
+.hcm{display:flex;align-items:center;gap:9px;}
+.hcm-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;}
+.hcm-name{font-size:11px;font-weight:600;color:var(--text);flex:1;}
+.hcm-st{font-size:10px;color:var(--muted);}
+.hcm-ico{font-size:13px;}
+.hc-prog{height:4px;background:var(--surface3);border-radius:2px;margin-top:14px;overflow:hidden;}
+.hc-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:2px;animation:grow 2s ease forwards;}
+@keyframes grow{from{width:0}to{width:75%}}
+
+/* ── SECTION BASE ── */
+.sec{padding:96px 0;}
+.sec-alt{background:var(--surface);}
+.sec-head{margin-bottom:52px;}
+.sec-center{text-align:center;}
+.sec-center .lead{margin:0 auto;max-width:520px;}
+
+/* ── MODULE TABS ── */
+.mtabs{display:flex;gap:3px;background:var(--surface2);border-radius:var(--rl);padding:4px;margin-bottom:44px;flex-wrap:wrap;}
+.mtab{flex:1;min-width:110px;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:600;color:var(--muted);text-align:center;cursor:pointer;transition:all var(--t);}
+.mtab.on{background:var(--gold);color:var(--ink);}
+.mtab:hover:not(.on){color:var(--text);background:var(--surface3);}
+.mcontent{display:none;}
+.mcontent.on{display:block;}
+
+/* ── AJO ── */
+.ajo-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+.circles-col{display:flex;flex-direction:column;gap:14px;}
+.circle-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:24px;transition:all var(--t);}
+.circle-card:hover{border-color:var(--border2);box-shadow:var(--sh);}
+.cc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cc-name{font-size:14px;font-weight:700;}
+.cc-badge{font-family:var(--fm);font-size:10px;padding:3px 8px;border-radius:99px;}
+.badge-rot{background:rgba(232,184,75,.12);color:var(--gold);border:1px solid rgba(232,184,75,.2);}
+.badge-tgt{background:rgba(29,184,106,.12);color:var(--green);border:1px solid rgba(29,184,106,.2);}
+.badge-emg{background:rgba(75,139,232,.12);color:var(--blue);border:1px solid rgba(75,139,232,.2);}
+.cc-amount{font-family:var(--ff);font-size:26px;font-weight:800;margin-bottom:3px;}
+.cc-cycle{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.cc-avs{display:flex;margin-bottom:10px;}
+.cav{width:26px;height:26px;border-radius:50%;border:2px solid var(--surface2);margin-left:-7px;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cav:first-child{margin-left:0;}
+.cav-more{font-size:11px;color:var(--muted);margin-left:8px;align-self:center;}
+.cc-prog{margin-bottom:14px;}
+.cc-prog-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.pbar{height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;}
+.pfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.pfill-g{background:linear-gradient(90deg,var(--green),var(--gold2));}
+.cc-next{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;margin-bottom:14px;}
+.ndot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.cc-acts{display:flex;gap:8px;}
+
+/* create circle form */
+.create-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:28px;}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.fg label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;}
+.fg input,.fg select,.fg textarea{background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;color:var(--text);outline:none;transition:border-color var(--t);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg select option{background:var(--surface2);}
+.fg textarea{resize:vertical;min-height:60px;}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fg.span2{grid-column:1/-1;}
+.form-tip{font-size:11px;color:var(--muted);margin-top:3px;font-style:italic;}
+
+/* ── SETTLEMENT TRACKER ── */
+.tracker-wrap{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;}
+.tx-list{display:flex;flex-direction:column;gap:10px;}
+.tx-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all var(--t);}
+.tx-card:hover{border-color:var(--border2);}
+.tx-card.sel{border-color:var(--gold);background:rgba(232,184,75,.04);}
+.tx-ico{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.tx-info{flex:1;min-width:0;}
+.tx-ref{font-family:var(--fm);font-size:11px;color:var(--muted);margin-bottom:2px;}
+.tx-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.tx-date{font-size:11px;color:var(--muted);}
+.tx-right{text-align:right;flex-shrink:0;}
+.tx-val{font-family:var(--ff);font-size:15px;font-weight:700;}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;display:inline-block;margin-top:3px;}
+.tag-delayed{background:rgba(232,75,75,.12);color:var(--red);}
+.tag-processing{background:rgba(75,139,232,.12);color:var(--blue);}
+.tag-settled{background:rgba(29,184,106,.12);color:var(--green);}
+.tag-pending{background:rgba(232,184,75,.12);color:var(--gold);}
+/* detail */
+.tx-detail{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:22px;position:sticky;top:80px;}
+.td-ref{font-family:var(--fm);font-size:11px;color:var(--muted);margin-bottom:5px;}
+.td-amt{font-family:var(--ff);font-size:30px;font-weight:800;margin-bottom:3px;}
+.td-proc{font-size:12px;color:var(--muted);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+/* timeline */
+.tl{display:flex;flex-direction:column;}
+.tl-step{display:flex;gap:12px;position:relative;}
+.tl-step:not(:last-child)::after{content:'';position:absolute;left:13px;top:28px;bottom:-4px;width:1px;background:var(--border);}
+.tl-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px;z-index:1;}
+.tl-done{background:var(--green);color:#fff;}
+.tl-active{background:var(--gold);color:var(--ink);}
+.tl-wait{background:var(--surface3);border:1px solid var(--border);}
+.tl-body{padding:2px 0 18px;}
+.tl-label{font-size:12px;font-weight:600;margin-bottom:1px;}
+.tl-time{font-size:11px;color:var(--muted);}
+.tl-note{font-size:11px;color:var(--muted);margin-top:3px;font-style:italic;}
+.eta-box{background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.18);border-radius:var(--r);padding:11px 14px;margin-top:14px;}
+.eta-lbl{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.eta-val{font-size:13px;font-weight:600;}
+
+/* ── DISPUTE ── */
+.disp-wrap{display:grid;grid-template-columns:320px 1fr;gap:24px;}
+.disp-list{display:flex;flex-direction:column;gap:8px;}
+.disp-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rl);padding:14px 16px;cursor:pointer;transition:all var(--t);}
+.disp-card:hover,.disp-card.sel{border-color:var(--gold);background:rgba(232,184,75,.03);}
+.dc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.dc-id{font-family:var(--fm);font-size:11px;color:var(--muted);}
+.dc-pri{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;}
+.pri-h{background:rgba(232,75,75,.15);color:var(--red);}
+.pri-m{background:rgba(232,184,75,.15);color:var(--gold);}
+.pri-r{background:rgba(29,184,106,.15);color:var(--green);}
+.dc-title{font-size:13px;font-weight:600;margin-bottom:3px;}
+.dc-meta{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.dc-sla{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.slabar{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;}
+.slafill{height:100%;border-radius:2px;}
+/* disp detail */
+.disp-detail{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:26px;}
+.dd-top{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.dd-id-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dd-title{font-family:var(--ff);font-size:20px;font-weight:700;margin-bottom:12px;}
+.dd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.dd-cell{background:var(--surface3);border-radius:var(--r);padding:11px;}
+.dd-cell-lbl{font-size:11px;color:var(--muted);margin-bottom:3px;font-weight:500;}
+.dd-cell-val{font-size:14px;font-weight:700;}
+.sla-prog-box{background:var(--surface3);border-radius:var(--r);padding:14px;margin-bottom:16px;}
+.sla-ph{display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;}
+.sla-track{height:7px;background:var(--surface);border-radius:4px;overflow:hidden;}
+.sla-done{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--gold));}
+/* activity */
+.act-log{display:flex;flex-direction:column;}
+.act-step{display:flex;gap:11px;position:relative;}
+.act-step:not(:last-child)::after{content:'';position:absolute;left:13px;top:28px;bottom:-4px;width:1px;background:var(--border);}
+.act-dot{width:26px;height:26px;border-radius:50%;background:var(--surface3);border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px;z-index:1;}
+.act-body{padding:2px 0 18px;}
+.act-text{font-size:13px;margin-bottom:2px;}
+.act-time{font-size:11px;color:var(--muted);}
+.act-bar{display:flex;gap:8px;padding-top:16px;border-top:1px solid var(--border);}
+.act-input{flex:1;background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color var(--t);}
+.act-input:focus{border-color:var(--gold);}
+
+/* ── MERCHANT ── */
+.merch-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.ms-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rl);padding:20px;}
+.ms-lbl{font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500;}
+.ms-val{font-family:var(--ff);font-size:28px;font-weight:800;margin-bottom:3px;}
+.ms-ch{font-size:12px;font-weight:600;}
+.ms-up{color:var(--green);}
+.ms-dn{color:var(--red);}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.prod-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:22px;transition:all var(--t);}
+.prod-card:hover{border-color:var(--gold);box-shadow:var(--sh);}
+.prod-ico{width:44px;height:44px;border-radius:11px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.prod-name{font-size:15px;font-weight:700;margin-bottom:5px;}
+.prod-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.prod-price{font-family:var(--fm);font-size:13px;color:var(--gold);margin-bottom:14px;}
+.prod-feats{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.pf{font-size:12px;color:var(--muted);display:flex;align-items:flex-start;gap:6px;}
+.pf::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+
+/* ── CREDIT SCORE ── */
+.credit-wrap{display:grid;grid-template-columns:340px 1fr;gap:24px;}
+.gauge-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:26px;text-align:center;}
+.gauge-svg-wrap{position:relative;width:180px;height:110px;margin:0 auto 16px;}
+.gauge-svg-wrap svg{width:100%;height:100%;}
+.gauge-center{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center;}
+.gauge-score{font-family:var(--ff);font-size:40px;font-weight:800;color:var(--gold);}
+.gauge-lbl{font-size:11px;color:var(--muted);}
+.factors{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
+.factor{display:flex;align-items:center;gap:10px;}
+.factor-lbl{font-size:12px;color:var(--muted);flex:1;text-align:left;}
+.factor-bar{flex:2;height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;}
+.factor-fill{height:100%;border-radius:3px;}
+.factor-val{font-size:12px;font-weight:600;width:30px;text-align:right;}
+.history-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:22px;}
+.month-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:5px;margin-bottom:18px;}
+.mo{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.mo-bwrap{height:52px;display:flex;align-items:flex-end;}
+.mo-bar{width:14px;border-radius:3px 3px 0 0;}
+.mo-bar.paid{background:var(--green);}
+.mo-bar.miss{background:var(--red);}
+.mo-lbl{font-size:9px;color:var(--muted);}
+.loan-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.loan-card{background:var(--surface3);border:1px solid var(--border);border-radius:var(--rl);padding:14px;}
+.lc-partner{font-size:11px;color:var(--muted);margin-bottom:5px;}
+.lc-amt{font-size:17px;font-weight:700;margin-bottom:3px;}
+.lc-rate{font-size:12px;color:var(--muted);margin-bottom:10px;}
+
+/* ── HOW IT WORKS ── */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.how-card{position:relative;padding-top:8px;}
+.how-n{font-family:var(--ff);font-size:56px;font-weight:800;color:var(--surface2);line-height:1;margin-bottom:-12px;}
+.how-ico{width:48px;height:48px;border-radius:13px;background:rgba(232,184,75,.09);border:1px solid rgba(232,184,75,.18);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;}
+.how-title{font-size:15px;font-weight:700;margin-bottom:7px;}
+.how-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* USSD banner */
+.ussd-strip{background:rgba(232,184,75,.06);border:1px solid rgba(232,184,75,.16);border-radius:var(--rl);padding:16px 22px;display:flex;align-items:center;gap:16px;margin-top:40px;cursor:pointer;transition:all var(--t);}
+.ussd-strip:hover{background:rgba(232,184,75,.1);}
+.ussd-code{font-family:var(--fm);font-size:20px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.ussd-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.ussd-text strong{color:var(--text);}
+
+/* ── TRUST ── */
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.trust-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:26px;transition:all var(--t);}
+.trust-card:hover{border-color:var(--border2);}
+.trust-ico{font-size:26px;margin-bottom:14px;display:block;}
+.trust-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.trust-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+
+/* ── PRICING ── */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.price-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:30px;position:relative;transition:all var(--t);}
+.price-card:hover,.price-card.feat{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),var(--sh);}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:10px;font-weight:800;padding:4px 14px;border-radius:99px;white-space:nowrap;}
+.price-tier{font-family:var(--fm);font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.price-amt{font-family:var(--ff);font-size:42px;font-weight:800;margin-bottom:3px;}
+.price-amt sup{font-size:18px;font-weight:600;vertical-align:super;}
+.price-period{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.price-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.price-feats{display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
+.prfeat{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:7px;}
+.prfeat.y::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.prfeat.n{opacity:.35;}
+.prfeat.n::before{content:'—';color:var(--faint);flex-shrink:0;}
+
+/* ── CTA ── */
+#cta{padding:96px 0;position:relative;overflow:hidden;}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 50% 100%,rgba(232,184,75,.07),transparent);}
+.cta-inner{position:relative;text-align:center;max-width:580px;margin:0 auto;}
+.cta-inner .lead{margin:0 auto 32px;}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--ink2);border-top:1px solid var(--border);padding:52px 0 0;}
+.fg-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.fb-desc{font-size:13px;color:var(--muted);line-height:1.7;margin:12px 0 18px;}
+.fsoc{display:flex;gap:7px;}
+.fsoc-btn{width:32px;height:32px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--t);}
+.fsoc-btn:hover{background:var(--gold);border-color:var(--gold);}
+.fcol h4{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fcol ul{display:flex;flex-direction:column;gap:9px;}
+.fcol ul li a{font-size:13px;color:var(--muted);transition:color var(--t);}
+.fcol ul li a:hover{color:var(--gold);}
+.fbot{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-size:12px;color:var(--muted);flex-wrap:wrap;gap:8px;}
+
+/* ── NOTIFICATION PANEL ── */
+#notif-panel{display:none;position:fixed;top:70px;right:56px;z-index:5000;width:340px;background:var(--ink2);border:1px solid var(--border2);border-radius:var(--rx);box-shadow:var(--sx);max-height:calc(100vh - 90px);overflow:hidden;}
+#notif-panel.op{display:block;animation:pdown .2s ease;}
+@keyframes pdown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+.np-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);}
+.np-title{font-size:13px;font-weight:700;}
+.np-mark{font-size:12px;color:var(--gold);cursor:pointer;font-weight:600;}
+.np-body{overflow-y:auto;max-height:380px;}
+.ni-item{display:flex;align-items:flex-start;gap:11px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background var(--t);}
+.ni-item:hover{background:var(--surface);}
+.ni-item.unread{background:rgba(232,184,75,.025);}
+.ni-ico{font-size:20px;flex-shrink:0;width:32px;text-align:center;}
+.ni-info{flex:1;min-width:0;}
+.ni-title{font-size:12px;font-weight:700;margin-bottom:2px;}
+.ni-body{font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:3px;}
+.ni-time{font-size:10px;color:var(--faint);}
+.ni-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
+
+/* ── PROFILE PANEL ── */
+#profile-panel{display:none;position:fixed;top:70px;right:16px;z-index:5000;width:260px;background:var(--ink2);border:1px solid var(--border2);border-radius:var(--rx);box-shadow:var(--sx);}
+#profile-panel.op{display:block;animation:pdown .2s ease;}
+.pp-head{padding:18px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px;}
+.pp-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8860b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--ink);flex-shrink:0;}
+.pp-name{font-size:13px;font-weight:700;}
+.pp-role{font-size:11px;color:var(--gold);}
+.pp-score{font-size:11px;color:var(--muted);margin-top:1px;}
+.pp-links{padding:6px 0;}
+.ppl{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all var(--t);}
+.ppl:hover{background:var(--surface);color:var(--text);}
+.ppl-ico{font-size:15px;width:18px;text-align:center;}
+.pp-div{height:1px;background:var(--border);margin:4px 0;}
+.ppl-red{color:var(--red)!important;}
+
+/* ── CONTACT TILES ── */
+.contact-tile{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:24px 16px;text-align:center;transition:all var(--t);color:inherit;}
+.contact-tile:hover{border-color:var(--gold);background:rgba(232,184,75,.05);transform:translateY(-3px);box-shadow:var(--sh);}
+.ct-ico{font-size:28px;margin-bottom:4px;}
+.ct-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.ct-val{font-size:14px;font-weight:600;color:var(--text);}
+
+/* ── AUTH MODAL ── */
+#modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+#modal-wrap.op{display:flex;animation:pdown .22s ease;}
+.modal{background:var(--ink2);border:1px solid var(--border2);border-radius:var(--rx);max-width:440px;width:100%;padding:32px;position:relative;animation:mup .26s ease;}
+@keyframes mup{from{transform:scale(.95);}to{transform:scale(1);}}
+.modal-x{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:var(--surface);color:var(--muted);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background var(--t);}
+.modal-x:hover{background:var(--surface2);}
+.modal-title{font-family:var(--ff);font-size:22px;font-weight:700;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.auth-tabs{display:flex;background:var(--surface);border-radius:var(--r);padding:3px;margin-bottom:18px;}
+.atab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;color:var(--muted);border-radius:8px;cursor:pointer;transition:all var(--t);}
+.atab.on{background:var(--gold);color:var(--ink);}
+.role-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:16px;}
+.role-opt{border:1.5px solid var(--border);border-radius:var(--r);padding:9px 6px;text-align:center;cursor:pointer;transition:all var(--t);}
+.role-opt.on{border-color:var(--gold);background:rgba(232,184,75,.07);}
+.role-ico{font-size:18px;margin-bottom:3px;}
+.role-lbl{font-size:11px;font-weight:600;}
+.modal-form{display:flex;flex-direction:column;gap:12px;}
+.modal-note{font-size:11px;color:var(--muted);text-align:center;margin-top:4px;}
+.modal-note a{color:var(--gold);}
+
+/* ── TOAST ── */
+#toast-wrap{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none;}
+.toast{background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:11px 18px;border-radius:var(--rl);font-size:13px;font-weight:500;box-shadow:var(--sx);animation:tin .28s ease,tout .28s ease 2.7s both;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.toast.success{border-color:rgba(29,184,106,.4);background:rgba(29,184,106,.1);}
+.toast.error{border-color:rgba(232,75,75,.4);background:rgba(232,75,75,.1);}
+.toast.gold{border-color:rgba(232,184,75,.35);background:rgba(232,184,75,.06);}
+@keyframes tin{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+@keyframes tout{from{opacity:1;}to{opacity:0;}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .hcard{display:none;}
+  .ajo-wrap,.tracker-wrap,.disp-wrap,.credit-wrap{grid-template-columns:1fr;}
+  .how-grid,.trust-grid,.price-grid{grid-template-columns:1fr 1fr;}
+  .merch-stats{grid-template-columns:1fr 1fr;}
+  .fg-grid{grid-template-columns:1fr 1fr;}
+  .month-grid{grid-template-columns:repeat(6,1fr);}
+  .dd-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:680px){
+  .nlinks,.ncta,.nav-icons{display:none;}.ham{display:flex;}
+  .how-grid,.trust-grid,.price-grid,.prod-grid,.loan-grid,.form-2{grid-template-columns:1fr;}
+  .merch-stats,.fg-grid{grid-template-columns:1fr;}
+  .mtabs{flex-direction:column;}
+  .hstats{gap:22px;}
+  .month-grid{grid-template-columns:repeat(4,1fr);}
+  .dd-grid{grid-template-columns:1fr;}
+  #notif-panel,#profile-panel{right:10px;left:10px;width:auto;}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+
+<!-- ████ NOTIFICATION PANEL ████ -->
+<div id="notif-panel">
+  <div class="np-head">
+    <span class="np-title">🔔 Notifications</span>
+    <span class="np-mark" onclick="toast('All marked as read','gold')">Mark all read</span>
+  </div>
+  <div class="np-body" id="np-body"></div>
+</div>
+
+<!-- ████ PROFILE PANEL ████ -->
+<div id="profile-panel">
+  <div class="pp-head">
+    <div class="pp-av" id="pp-av">AO</div>
+    <div>
+      <div class="pp-name" id="pp-name">Amaka Obi</div>
+      <div class="pp-role">💰 Saver</div>
+      <div class="pp-score">AjoScore™ 742 · Excellent</div>
+    </div>
+  </div>
+  <div class="pp-links">
+    <div class="ppl" onclick="toast('Opening dashboard…','gold')"><span class="ppl-ico">📊</span>Dashboard</div>
+    <div class="ppl" onclick="toast('Opening my circles…','gold')"><span class="ppl-ico">🏦</span>My Circles</div>
+    <div class="ppl" onclick="switchModule('credit',document.querySelectorAll('.mtab')[4]);closeProfile()"><span class="ppl-ico">📈</span>AjoScore™</div>
+    <div class="ppl" onclick="toast('Opening transactions…','gold')"><span class="ppl-ico">💳</span>Transactions</div>
+    <div class="pp-div"></div>
+    <div class="ppl" onclick="toast('Opening profile settings…','gold')"><span class="ppl-ico">⚙️</span>Profile settings</div>
+    <div class="ppl" onclick="showUSSD()"><span class="ppl-ico">📱</span>USSD (*346*7#)</div>
+    <div class="pp-div"></div>
+    <div class="ppl ppl-red" onclick="doLogout()"><span class="ppl-ico">🚪</span>Log out</div>
+  </div>
+</div>
+
+<!-- ████ NAV ████ -->
+<nav id="nav">
+  <div class="wrap">
+    <div class="ni">
+      <a href="#hero" class="logo">
+        <div class="lmark">🏦</div>
+        <div class="lname">Ajo<span>Vault</span></div>
+      </a>
+      <div class="nlinks">
+        <a href="#modules" class="nl">Platform</a>
+        <a href="#how" class="nl">How it works</a>
+        <a href="#trust" class="nl">Security</a>
+        <a href="#pricing" class="nl">Pricing</a>
+        <a href="#contact" class="nl">Contact</a>
+      </div>
+      <!-- post-login icons -->
+      <div class="nav-icons" id="nav-icons" style="display:none;">
+        <div class="nib" id="notif-btn" onclick="toggleNotif()" title="Notifications">
+          🔔<span class="nbadge" id="notif-badge">3</span>
+        </div>
+        <div class="nib" id="profile-btn" onclick="toggleProfile()" title="Profile">👤</div>
+      </div>
+      <!-- pre-login buttons -->
+      <div class="ncta" id="nav-auth">
+        <button class="btn btn-outline btn-sm" onclick="openModal('login')">Log in</button>
+        <button class="btn btn-gold btn-sm" onclick="openModal('signup')">Get started free →</button>
+      </div>
+      <button class="ham" id="ham"><span></span><span></span><span></span></button>
+    </div>
+    <div id="mm">
+      <a href="#modules" onclick="cmm()">Platform</a>
+      <a href="#how" onclick="cmm()">How it works</a>
+      <a href="#trust" onclick="cmm()">Security</a>
+      <a href="#pricing" onclick="cmm()">Pricing</a>
+      <a href="#contact" onclick="cmm()">Contact</a>
+      <button class="btn btn-gold" onclick="openModal('signup');cmm()">Get started free →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ████ HERO ████ -->
+<section id="hero">
+  <div class="hbg"></div><div class="hgrid"></div>
+  <div class="wrap" style="position:relative;z-index:1;">
+    <div class="hc">
+      <div class="hbadge"><span class="hdot"></span>Nigeria's trust layer for money</div>
+      <h1 class="h1 htitle">Save together.<br>Get paid <span class="acc">on time.</span></h1>
+      <p class="lead hsub">AjoVault digitises Nigeria's centuries-old savings traditions — and adds the dispute resolution, settlement tracking, and merchant tools that Flutterwave, Paystack, and Moniepoint don't provide.</p>
+      <div class="hbtns">
+        <button class="btn btn-gold btn-lg" onclick="openModal('signup')">Start saving free →</button>
+        <a href="#modules" class="btn btn-outline btn-lg">See the platform</a>
+      </div>
+      <div class="hstats">
+        <div><div class="stn">₦0</div><div class="stl">Commission on savings</div></div>
+        <div><div class="stn">48h</div><div class="stl">Dispute SLA guarantee</div></div>
+        <div><div class="stn">100%</div><div class="stl">Payout certainty</div></div>
+        <div><div class="stn">5</div><div class="stl">Products in one platform</div></div>
+      </div>
+    </div>
+    <!-- floating card -->
+    <div class="hcard">
+      <div class="hc-head">
+        <span class="hc-title">Market Women Circle</span>
+        <span class="hc-live">● Live</span>
+      </div>
+      <div class="hc-ring">
+        <svg viewBox="0 0 140 80" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 20 75 A 55 55 0 0 1 120 75" fill="none" stroke="#243657" stroke-width="10" stroke-linecap="round"/>
+          <path d="M 20 75 A 55 55 0 0 1 120 75" fill="none" stroke="#e8b84b" stroke-width="10" stroke-linecap="round" stroke-dasharray="172" stroke-dashoffset="43"/>
+        </svg>
+        <div class="hc-center"><div class="hc-amt">₦84k</div><div class="hc-lbl">pot total</div></div>
+      </div>
+      <div class="hc-members">
+        <div class="hcm"><div class="hcm-av" style="background:#e8b84b">AO</div><div class="hcm-name">Amaka Obi</div><div class="hcm-st">Payout this month</div><div class="hcm-ico">🎯</div></div>
+        <div class="hcm"><div class="hcm-av" style="background:#1db86a">FK</div><div class="hcm-name">Fatima Kolo</div><div class="hcm-st">Contributed ✓</div><div class="hcm-ico" style="color:var(--green)">✓</div></div>
+        <div class="hcm"><div class="hcm-av" style="background:#4b8be8">CN</div><div class="hcm-name">Chioma Nweze</div><div class="hcm-st">Due in 3 days</div><div class="hcm-ico" style="color:var(--gold)">⏱</div></div>
+      </div>
+      <div class="hc-prog"><div class="hc-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ MODULES ████ -->
+<section id="modules" class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">The Platform</span>
+      <h2 class="h2" style="margin-bottom:10px;">Five products.<br>One platform.</h2>
+      <p class="lead" style="max-width:480px;">Everything the big fintechs don't offer — built specifically for Nigerians and African merchants.</p>
+    </div>
+    <div class="mtabs rv d1">
+      <div class="mtab on" onclick="switchModule('ajo',this)">🏦 Digital Ajo</div>
+      <div class="mtab" onclick="switchModule('tracker',this)">📡 Settlement Tracker</div>
+      <div class="mtab" onclick="switchModule('dispute',this)">⚖️ Dispute Resolution</div>
+      <div class="mtab" onclick="switchModule('merchant',this)">🛒 Merchant Tools</div>
+      <div class="mtab" onclick="switchModule('credit',this)">📊 AjoScore™</div>
+    </div>
+
+    <!-- ░░ AJO MODULE ░░ -->
+    <div class="mcontent on" id="mod-ajo">
+      <div class="ajo-wrap">
+        <div>
+          <h3 class="h3" style="margin-bottom:6px;">Your savings circles</h3>
+          <p class="body" style="margin-bottom:20px;">Rotating (Ajo), target, and emergency circles — automated, transparent, and guaranteed to pay out on time.</p>
+          <div class="circles-col">
+            <div class="circle-card">
+              <div class="cc-head"><span class="cc-name">Eko Market Women</span><span class="cc-badge badge-rot">Rotating</span></div>
+              <div class="cc-amount">₦12,000 <span style="font-size:13px;font-weight:400;color:var(--muted)">/month</span></div>
+              <div class="cc-cycle">12 members · Cycle 4 of 12</div>
+              <div class="cc-avs">
+                <div class="cav" style="background:#e8b84b">AO</div>
+                <div class="cav" style="background:#1db86a">FK</div>
+                <div class="cav" style="background:#4b8be8">CN</div>
+                <div class="cav" style="background:#e84b4b">BI</div>
+                <div class="cav" style="background:#9b4be8">NG</div>
+                <span class="cav-more">+7 more</span>
+              </div>
+              <div class="cc-prog">
+                <div class="cc-prog-top"><span>Pot filled</span><span>₦84,000 / ₦144,000</span></div>
+                <div class="pbar"><div class="pfill" style="width:58%"></div></div>
+              </div>
+              <div class="cc-next"><span class="ndot"></span>Amaka Obi receives ₦144,000 payout on July 14</div>
+              <div class="cc-acts">
+                <button class="btn btn-ghost btn-sm" onclick="toast('Opening circle details…','gold')">View circle</button>
+                <button class="btn btn-gold btn-sm" onclick="paystackPay('Eko Market Women',1200000)">Pay ₦12,000 now</button>
+              </div>
+            </div>
+
+            <div class="circle-card">
+              <div class="cc-head"><span class="cc-name">School Fees Save</span><span class="cc-badge badge-tgt">Target</span></div>
+              <div class="cc-amount">₦250,000 <span style="font-size:13px;font-weight:400;color:var(--muted)">goal</span></div>
+              <div class="cc-cycle">5 members · ₦10,000/week each</div>
+              <div class="cc-avs">
+                <div class="cav" style="background:#e8b84b">YK</div>
+                <div class="cav" style="background:#1db86a">RA</div>
+                <div class="cav" style="background:#4b8be8">MO</div>
+                <span class="cav-more">+2 more</span>
+              </div>
+              <div class="cc-prog">
+                <div class="cc-prog-top"><span>Saved so far</span><span>₦170,000 / ₦250,000</span></div>
+                <div class="pbar"><div class="pfill pfill-g" style="width:68%"></div></div>
+              </div>
+              <div class="cc-next"><span class="ndot"></span>Target date: September 1, 2026</div>
+              <div class="cc-acts">
+                <button class="btn btn-ghost btn-sm" onclick="toast('Opening circle details…','gold')">View circle</button>
+                <button class="btn btn-green btn-sm" onclick="paystackPay('School Fees Save',1000000)">Contribute ₦10,000</button>
+              </div>
+            </div>
+
+            <div class="circle-card">
+              <div class="cc-head"><span class="cc-name">Emergency Fund</span><span class="cc-badge badge-emg">Emergency</span></div>
+              <div class="cc-amount">₦5,000 <span style="font-size:13px;font-weight:400;color:var(--muted)">/week</span></div>
+              <div class="cc-cycle">8 members · Anyone can draw in crisis</div>
+              <div class="cc-avs">
+                <div class="cav" style="background:#4b8be8">JO</div>
+                <div class="cav" style="background:#e8b84b">SM</div>
+                <div class="cav" style="background:#1db86a">TN</div>
+                <span class="cav-more">+5 more</span>
+              </div>
+              <div class="cc-prog">
+                <div class="cc-prog-top"><span>Emergency pot</span><span>₦92,000 available</span></div>
+                <div class="pbar"><div class="pfill" style="width:82%;background:linear-gradient(90deg,var(--blue),var(--green))"></div></div>
+              </div>
+              <div class="cc-next"><span class="ndot" style="background:var(--blue)"></span>All members verified · Max draw ₦40,000</div>
+              <div class="cc-acts">
+                <button class="btn btn-ghost btn-sm" onclick="toast('Opening circle details…','gold')">View circle</button>
+                <button class="btn btn-ghost btn-sm" onclick="toast('Emergency draw request submitted for review','gold')">Request draw</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="create-card rv d1">
+          <h3 class="h3" style="margin-bottom:5px;">Create a new circle</h3>
+          <p class="body" style="margin-bottom:18px;">Takes 2 minutes. Invite members by phone number.</p>
+          <div class="form-2">
+            <div class="fg"><label>Circle name</label><input type="text" id="c-name" placeholder="e.g. Office Savings Group"/></div>
+            <div class="fg"><label>Type</label>
+              <select id="c-type">
+                <option>Rotating (Ajo)</option>
+                <option>Target savings</option>
+                <option>Emergency fund</option>
+              </select>
+            </div>
+            <div class="fg"><label>Amount per cycle (₦)</label><input type="text" id="c-amount" placeholder="10000"/></div>
+            <div class="fg"><label>Frequency</label>
+              <select id="c-freq"><option>Weekly</option><option>Monthly</option><option>Daily</option></select>
+            </div>
+            <div class="fg"><label>Number of members</label><input type="number" id="c-members" placeholder="12"/></div>
+            <div class="fg"><label>Start date</label><input type="date" id="c-date"/></div>
+            <div class="fg span2"><label>Invite members (phone numbers)</label>
+              <textarea id="c-phones" placeholder="08012345678, 09087654321, 08055443322…" rows="2"></textarea>
+              <span class="form-tip">Members receive an SMS invitation to join your circle</span>
+            </div>
+          </div>
+          <button class="btn btn-gold btn-full" style="margin-top:4px;" onclick="createCircle()">Create circle & send invites →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░░ SETTLEMENT TRACKER ░░ -->
+    <div class="mcontent" id="mod-tracker">
+      <div class="tracker-wrap">
+        <div>
+          <h3 class="h3" style="margin-bottom:6px;">Your settlements</h3>
+          <p class="body" style="margin-bottom:18px;">Real-time tracking of every Paystack and Flutterwave payout. We flag delays before they become crises.</p>
+          <div class="tx-list">
+            <div class="tx-card sel" onclick="selTx(this,'FLW-TXN-2847291','₦284,500','Flutterwave','delayed','3 days overdue')">
+              <div class="tx-ico" style="background:rgba(232,75,75,.1)">💸</div>
+              <div class="tx-info">
+                <div class="tx-ref">FLW-TXN-2847291</div>
+                <div class="tx-name">Flutterwave settlement</div>
+                <div class="tx-date">Jul 5, 2026 · 3 days overdue</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-val">₦284,500</div>
+                <span class="tag tag-delayed">Delayed</span>
+              </div>
+            </div>
+            <div class="tx-card" onclick="selTx(this,'PSK-TXN-2841055','₦127,300','Paystack','processing','Processing now')">
+              <div class="tx-ico" style="background:rgba(75,139,232,.1)">⏳</div>
+              <div class="tx-info">
+                <div class="tx-ref">PSK-TXN-2841055</div>
+                <div class="tx-name">Paystack settlement</div>
+                <div class="tx-date">Jul 7, 2026 · Processing</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-val">₦127,300</div>
+                <span class="tag tag-processing">Processing</span>
+              </div>
+            </div>
+            <div class="tx-card" onclick="selTx(this,'FLW-TXN-2836744','₦540,000','Flutterwave','settled','Settled Jul 3')">
+              <div class="tx-ico" style="background:rgba(29,184,106,.1)">✅</div>
+              <div class="tx-info">
+                <div class="tx-ref">FLW-TXN-2836744</div>
+                <div class="tx-name">Flutterwave settlement</div>
+                <div class="tx-date">Jul 3, 2026 · Settled on time</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-val">₦540,000</div>
+                <span class="tag tag-settled">Settled</span>
+              </div>
+            </div>
+            <div class="tx-card" onclick="selTx(this,'PSK-TXN-2829301','₦88,750','Paystack','pending','Expected Jul 9')">
+              <div class="tx-ico" style="background:rgba(232,184,75,.1)">🕐</div>
+              <div class="tx-info">
+                <div class="tx-ref">PSK-TXN-2829301</div>
+                <div class="tx-name">Paystack settlement</div>
+                <div class="tx-date">Jul 8, 2026 · Pending</div>
+              </div>
+              <div class="tx-right">
+                <div class="tx-val">₦88,750</div>
+                <span class="tag tag-pending">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tx-detail" id="tx-detail">
+          <div class="td-ref" id="td-ref">FLW-TXN-2847291 · Flutterwave</div>
+          <div class="td-amt" id="td-amt">₦284,500</div>
+          <div class="td-proc" id="td-proc">3 days overdue · Expected Jul 5</div>
+          <div class="tl">
+            <div class="tl-step"><div class="tl-dot tl-done">✓</div><div class="tl-body"><div class="tl-label">Payment received</div><div class="tl-time">Jul 4 · 2:14 PM</div></div></div>
+            <div class="tl-step"><div class="tl-dot tl-done">✓</div><div class="tl-body"><div class="tl-label">Fraud check passed</div><div class="tl-time">Jul 4 · 2:16 PM</div></div></div>
+            <div class="tl-step"><div class="tl-dot tl-done">✓</div><div class="tl-body"><div class="tl-label">Queued for settlement</div><div class="tl-time">Jul 4 · 6:00 PM</div></div></div>
+            <div class="tl-step"><div class="tl-dot tl-active">!</div><div class="tl-body"><div class="tl-label">Settlement stalled</div><div class="tl-time">Jul 5 → Jul 8 · 3 days</div><div class="tl-note">AjoVault auto-escalated to Flutterwave compliance.</div></div></div>
+            <div class="tl-step"><div class="tl-dot tl-wait"></div><div class="tl-body"><div class="tl-label">Bank credit</div><div class="tl-time">Awaiting</div></div></div>
+          </div>
+          <div class="eta-box">
+            <div class="eta-lbl">AjoVault ETA</div>
+            <div class="eta-val">₦284,500 expected by Jul 10 — or dispute auto-opens</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <button class="btn btn-ghost btn-sm btn-full" onclick="toast('Escalation email sent to Flutterwave ✓','gold')">Escalate now</button>
+            <button class="btn btn-gold btn-sm btn-full" onclick="openDisputeFromTracker()">Open dispute</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░░ DISPUTE RESOLUTION ░░ -->
+    <div class="mcontent" id="mod-dispute">
+      <div class="disp-wrap">
+        <div>
+          <h3 class="h3" style="margin-bottom:6px;">Active disputes</h3>
+          <p class="body" style="margin-bottom:14px;">48-hour SLA on every case. We escalate automatically.</p>
+          <div class="disp-list">
+            <div class="disp-card sel" onclick="selDisp(this)">
+              <div class="dc-top"><span class="dc-id">DSP-0041</span><span class="dc-pri pri-h">HIGH</span></div>
+              <div class="dc-title">Funds held — ₦284,500 · Flutterwave</div>
+              <div class="dc-meta">Opened Jul 5 · Settlement withheld 3 days</div>
+              <div class="dc-sla"><span>SLA:</span><div class="slabar"><div class="slafill" style="width:80%;background:var(--red)"></div></div><span>38h / 48h</span></div>
+            </div>
+            <div class="disp-card" onclick="selDisp(this)">
+              <div class="dc-top"><span class="dc-id">DSP-0039</span><span class="dc-pri pri-m">MED</span></div>
+              <div class="dc-title">Double charge — ₦4,500 · Paystack</div>
+              <div class="dc-meta">Opened Jul 6 · Transaction fee disputed</div>
+              <div class="dc-sla"><span>SLA:</span><div class="slabar"><div class="slafill" style="width:40%;background:var(--gold)"></div></div><span>19h / 48h</span></div>
+            </div>
+            <div class="disp-card" onclick="selDisp(this)">
+              <div class="dc-top"><span class="dc-id">DSP-0037</span><span class="dc-pri pri-r">RESOLVED</span></div>
+              <div class="dc-title">Payout delay — ₦76,000 · Moniepoint</div>
+              <div class="dc-meta">Resolved Jul 4 · 31h resolution time</div>
+              <div class="dc-sla"><span>SLA:</span><div class="slabar"><div class="slafill" style="width:100%;background:var(--green)"></div></div><span>Resolved ✓</span></div>
+            </div>
+            <button class="btn btn-gold btn-full" style="margin-top:8px;" onclick="newDispute()">+ Open new dispute</button>
+          </div>
+        </div>
+
+        <div class="disp-detail">
+          <div class="dd-top">
+            <div class="dd-id-row">
+              <span class="dc-id">DSP-0041</span>
+              <span class="tag tag-delayed">In progress</span>
+            </div>
+            <div class="dd-title">Flutterwave settlement withheld — ₦284,500</div>
+            <div class="dd-grid">
+              <div class="dd-cell"><div class="dd-cell-lbl">Amount</div><div class="dd-cell-val">₦284,500</div></div>
+              <div class="dd-cell"><div class="dd-cell-lbl">Processor</div><div class="dd-cell-val">Flutterwave</div></div>
+              <div class="dd-cell"><div class="dd-cell-lbl">Days held</div><div class="dd-cell-val" style="color:var(--red)">3 days</div></div>
+            </div>
+            <div class="sla-prog-box">
+              <div class="sla-ph"><span style="color:var(--muted)">48h SLA Progress</span><span style="font-weight:700;color:var(--red)">38h / 48h used</span></div>
+              <div class="sla-track"><div class="sla-done" style="width:79%"></div></div>
+            </div>
+          </div>
+          <div class="act-log">
+            <div class="act-step"><div class="act-dot">📋</div><div class="act-body"><div class="act-text">Dispute case opened automatically by AjoVault</div><div class="act-time">Jul 5 · 6:02 PM</div></div></div>
+            <div class="act-step"><div class="act-dot">📧</div><div class="act-body"><div class="act-text">Formal escalation email sent to Flutterwave compliance team</div><div class="act-time">Jul 5 · 6:05 PM</div></div></div>
+            <div class="act-step"><div class="act-dot">🏛️</div><div class="act-body"><div class="act-text">CBN complaint reference generated — CBN/2026/07/08847</div><div class="act-time">Jul 6 · 9:00 AM</div></div></div>
+            <div class="act-step"><div class="act-dot">⏰</div><div class="act-body"><div class="act-text">Auto-escalation to Flutterwave Head of Merchant Success if unresolved by Jul 10</div><div class="act-time">Scheduled</div></div></div>
+          </div>
+          <div class="act-bar">
+            <input class="act-input" placeholder="Add a note or evidence URL…" id="disp-note"/>
+            <button class="btn btn-ghost btn-sm" onclick="addDispNote()">Add note</button>
+            <button class="btn btn-gold btn-sm" onclick="toast('CBN complaint submitted. Ref: CBN/2026/07/08847','success')">File CBN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░░ MERCHANT TOOLS ░░ -->
+    <div class="mcontent" id="mod-merchant">
+      <div class="merch-stats">
+        <div class="ms-card"><div class="ms-lbl">Gross revenue (July)</div><div class="ms-val">₦1.84M</div><div class="ms-ch ms-up">↑ 23% vs June</div></div>
+        <div class="ms-card"><div class="ms-lbl">Pending settlements</div><div class="ms-val" style="color:var(--gold)">₦413k</div><div class="ms-ch" style="color:var(--muted)">3 processors</div></div>
+        <div class="ms-card"><div class="ms-lbl">Chargebacks managed</div><div class="ms-val" style="color:var(--green)">₦0 loss</div><div class="ms-ch ms-up">↓ 100% — AjoVault managed</div></div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-ico" style="background:rgba(232,184,75,.1)">🧾</div>
+          <div class="prod-name">Merchant of Record</div>
+          <div class="prod-desc">We become the legal seller on your behalf. We handle VAT remittance, chargebacks, and cross-border compliance so you focus on selling.</div>
+          <div class="prod-price">1.5% per transaction</div>
+          <div class="prod-feats">
+            <div class="pf">VAT remittance handled automatically</div>
+            <div class="pf">Chargeback liability transferred to AjoVault</div>
+            <div class="pf">Sell in 40+ countries without local entities</div>
+            <div class="pf">Monthly compliance report generated</div>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="toast('Merchant of Record application started ✓','success')">Enable for my store →</button>
+        </div>
+        <div class="prod-card">
+          <div class="prod-ico" style="background:rgba(29,184,106,.1)">💱</div>
+          <div class="prod-name">FX Settlement at Real Rates</div>
+          <div class="prod-desc">Receive USD, GBP, EUR settlements at real market rates — not CBN official rates. No more losing 8–12% on conversion.</div>
+          <div class="prod-price">₦500/month flat fee</div>
+          <div class="prod-feats">
+            <div class="pf">Market-rate USD / GBP / EUR conversion</div>
+            <div class="pf">Same-day settlement to domiciliary account</div>
+            <div class="pf">Rate lock available up to 48 hours</div>
+            <div class="pf">Transparent rate history dashboard</div>
+          </div>
+          <button class="btn btn-green btn-sm" onclick="toast('FX Settlement activated ✓','success')">Activate FX settlement →</button>
+        </div>
+        <div class="prod-card">
+          <div class="prod-ico" style="background:rgba(75,139,232,.1)">📊</div>
+          <div class="prod-name">Payment Reconciliation</div>
+          <div class="prod-desc">Auto-reconciles your Paystack and Flutterwave transactions with your bank statements. Flags discrepancies before they become problems.</div>
+          <div class="prod-price">Free forever</div>
+          <div class="prod-feats">
+            <div class="pf">Auto-sync with Paystack & Flutterwave APIs</div>
+            <div class="pf">Bank statement matching</div>
+            <div class="pf">Discrepancy alerts via WhatsApp / SMS</div>
+            <div class="pf">Monthly reconciliation PDF report</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="toast('Reconciliation connected ✓','gold')">Connect accounts →</button>
+        </div>
+        <div class="prod-card">
+          <div class="prod-ico" style="background:rgba(155,75,232,.1)">🌍</div>
+          <div class="prod-name">Intra-Africa Payments</div>
+          <div class="prod-desc">Send and receive payments between Nigeria, Kenya, Ghana, and Senegal at transparent rates with same-day settlement in local currency.</div>
+          <div class="prod-price">0.8% per transfer</div>
+          <div class="prod-feats">
+            <div class="pf">NGN ↔ KES ↔ GHS ↔ XOF corridors</div>
+            <div class="pf">Same-day settlement in local currency</div>
+            <div class="pf">Full documentation and audit trail</div>
+            <div class="pf">Bulk payments for 500+ recipients</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="toast('Intra-Africa corridor enabled ✓','success')">Enable corridor →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ░░ AJOSCORE ░░ -->
+    <div class="mcontent" id="mod-credit">
+      <div class="credit-wrap">
+        <div class="gauge-card">
+          <h3 class="h3" style="margin-bottom:14px;">Your AjoScore™</h3>
+          <div class="gauge-svg-wrap">
+            <svg viewBox="0 0 180 110" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 18 100 A 73 73 0 0 1 162 100" fill="none" stroke="#1a2d4a" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 18 100 A 73 73 0 0 1 162 100" fill="none" stroke="#e8b84b" stroke-width="14" stroke-linecap="round" stroke-dasharray="229" stroke-dashoffset="57"/>
+            </svg>
+            <div class="gauge-center"><div class="gauge-score">742</div><div class="gauge-lbl">Excellent</div></div>
+          </div>
+          <p class="body" style="font-size:13px;margin-bottom:18px;">Built from your ajo contribution history. Share with lenders to access loans with no collateral.</p>
+          <div class="factors">
+            <div class="factor"><span class="factor-lbl">Payment consistency</span><div class="factor-bar"><div class="factor-fill" style="width:92%;background:var(--green)"></div></div><span class="factor-val">92%</span></div>
+            <div class="factor"><span class="factor-lbl">Circle tenure</span><div class="factor-bar"><div class="factor-fill" style="width:78%;background:var(--gold)"></div></div><span class="factor-val">78%</span></div>
+            <div class="factor"><span class="factor-lbl">Group diversity</span><div class="factor-bar"><div class="factor-fill" style="width:65%;background:var(--blue)"></div></div><span class="factor-val">65%</span></div>
+            <div class="factor"><span class="factor-lbl">Default history</span><div class="factor-bar"><div class="factor-fill" style="width:100%;background:var(--green)"></div></div><span class="factor-val">0</span></div>
+          </div>
+        </div>
+        <div class="history-card">
+          <h3 class="h3" style="margin-bottom:5px;font-size:18px;">12-month contribution history</h3>
+          <p class="body" style="margin-bottom:18px;font-size:13px;">Every contribution builds your score. Missed payments reduce it.</p>
+          <div class="month-grid" id="month-grid"></div>
+          <h3 class="h3" style="margin-bottom:12px;font-size:16px;">Loan offers unlocked by your score</h3>
+          <div class="loan-grid">
+            <div class="loan-card"><div class="lc-partner">🏦 Lapo Microfinance</div><div class="lc-amt">Up to ₦500,000</div><div class="lc-rate">3.5% monthly · No collateral</div><button class="btn btn-gold btn-sm" onclick="toast('Application sent to Lapo MFB ✓','success')">Apply now →</button></div>
+            <div class="loan-card"><div class="lc-partner">💳 Carbon</div><div class="lc-amt">Up to ₦200,000</div><div class="lc-rate">2.5% monthly · Instant</div><button class="btn btn-gold btn-sm" onclick="toast('Redirecting to Carbon with your AjoScore ✓','success')">Apply now →</button></div>
+            <div class="loan-card"><div class="lc-partner">🌱 FairMoney</div><div class="lc-amt">Up to ₦300,000</div><div class="lc-rate">4% monthly · 6 months</div><button class="btn btn-gold btn-sm" onclick="toast('AjoScore shared with FairMoney ✓','success')">Apply now →</button></div>
+            <div class="loan-card" style="border-color:rgba(232,184,75,.2);background:rgba(232,184,75,.03)"><div class="lc-partner" style="color:var(--gold)">✨ Score 800+ unlocks</div><div class="lc-amt">Better rates & higher limits</div><div class="lc-rate">Keep contributing consistently</div><button class="btn btn-ghost btn-sm" onclick="toast('Tip: contribute on time for 3 more months to reach 800+','gold')">How to improve</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ HOW IT WORKS ████ -->
+<section id="how" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head sec-center rv">
+      <span class="eyebrow">How it works</span>
+      <h2 class="h2" style="margin-bottom:10px;">Up and running in minutes</h2>
+      <p class="lead sec-center">No CBN licence needed to start. AjoVault runs on Paystack and Flutterwave's licensed rails — adding the layer they've never built.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card rv"><span class="how-n">01</span><div class="how-ico">📱</div><div class="how-title">Create your account</div><div class="how-desc">Sign up with phone and BVN. Full KYC in 3 minutes. No branch visit, no documents to print.</div></div>
+      <div class="how-card rv d1"><span class="how-n">02</span><div class="how-ico">🔗</div><div class="how-title">Connect your accounts</div><div class="how-desc">Link your Paystack or Flutterwave account. AjoVault starts tracking settlements and flagging delays immediately.</div></div>
+      <div class="how-card rv d2"><span class="how-n">03</span><div class="how-ico">👥</div><div class="how-title">Create or join a circle</div><div class="how-desc">Start a rotating ajo, target savings, or emergency fund. Invite members by phone — they join in one tap.</div></div>
+      <div class="how-card rv d3"><span class="how-n">04</span><div class="how-ico">📈</div><div class="how-title">Build your AjoScore™</div><div class="how-desc">Every contribution builds your credit score. Share it with lenders to access loans with no collateral required.</div></div>
+    </div>
+    <div class="ussd-strip rv" onclick="showUSSD()" style="max-width:640px;margin:40px auto 0;">
+      <div class="ussd-code">*346*7#</div>
+      <div class="ussd-text"><strong>No smartphone? No problem.</strong> Dial *346*7# on any Nigerian phone to access AjoVault via USSD — contribute, check your balance, and receive payouts without internet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ TRUST ████ -->
+<section id="trust" class="sec">
+  <div class="wrap">
+    <div class="sec-head sec-center rv">
+      <span class="eyebrow">Security & Trust</span>
+      <h2 class="h2" style="margin-bottom:10px;">The trust layer Nigeria's<br>fintech ecosystem is missing</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card rv"><span class="trust-ico">🛡️</span><div class="trust-title">48-Hour SLA Guarantee</div><div class="trust-desc">Every dispute gets a response within 48 hours — or we automatically escalate to the processor's compliance team and generate a CBN complaint reference. No other platform guarantees this.</div></div>
+      <div class="trust-card rv d1"><span class="trust-ico">🔐</span><div class="trust-title">Funds Never Touch AjoVault</div><div class="trust-desc">Ajo contributions move directly between members' verified bank accounts via Paystack's licensed rails. AjoVault never holds your money — we hold the trust logic and the records.</div></div>
+      <div class="trust-card rv d2"><span class="trust-ico">📋</span><div class="trust-title">Full Audit Trail</div><div class="trust-desc">Every contribution, payout, dispute action, and escalation is timestamped and immutable. Exportable as PDF. Admissible as evidence in any bank or CBN dispute.</div></div>
+      <div class="trust-card rv"><span class="trust-ico">✅</span><div class="trust-title">BVN-Verified Members</div><div class="trust-desc">Every circle member is BVN-verified before they can contribute or receive payouts. The biggest failure point of traditional ajo — trusting strangers — is eliminated.</div></div>
+      <div class="trust-card rv d1"><span class="trust-ico">💰</span><div class="trust-title">Payout Certainty Fund</div><div class="trust-desc">If a member defaults, the Payout Certainty Fund covers the shortfall so the designated recipient still receives their full payout on the agreed date. Traditional ajo can't promise this.</div></div>
+      <div class="trust-card rv d2"><span class="trust-ico">🏛️</span><div class="trust-title">CBN Compliant by Design</div><div class="trust-desc">AjoVault is a record-keeping and dispute management platform — not a bank. We operate under Paystack and Flutterwave's existing PSP licences. Zero regulatory risk to our users.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ PRICING ████ -->
+<section id="pricing" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head sec-center rv">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="h2" style="margin-bottom:10px;">Simple pricing.<br>No hidden charges.</h2>
+      <p class="lead sec-center">Flat fee. The delays, chargebacks, and disputes we prevent will save you far more than what we charge.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card rv">
+        <div class="price-tier">Starter</div>
+        <div class="price-amt"><sup>₦</sup>0</div>
+        <div class="price-period">Forever free</div>
+        <div class="price-desc">For individuals and small circles getting started with digital savings.</div>
+        <div class="price-feats">
+          <div class="prfeat y">Up to 2 savings circles</div>
+          <div class="prfeat y">Basic settlement tracking</div>
+          <div class="prfeat y">AjoScore (view only)</div>
+          <div class="prfeat y">Community dispute templates</div>
+          <div class="prfeat y">WhatsApp contribution reminders</div>
+          <div class="prfeat n">Dispute SLA guarantee</div>
+          <div class="prfeat n">Merchant of Record</div>
+          <div class="prfeat n">FX settlement</div>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="openModal('signup')">Get started free</button>
+      </div>
+      <div class="price-card feat rv d1">
+        <div class="price-badge">⭐ Most popular</div>
+        <div class="price-tier">Pro</div>
+        <div class="price-amt"><sup>₦</sup>4,900</div>
+        <div class="price-period">per month · cancel any time</div>
+        <div class="price-desc">For active merchants and circle organisers who need guaranteed settlements and dispute resolution.</div>
+        <div class="price-feats">
+          <div class="prfeat y">Unlimited savings circles</div>
+          <div class="prfeat y">Real-time settlement tracking</div>
+          <div class="prfeat y">48h dispute SLA guarantee</div>
+          <div class="prfeat y">AjoScore with lender access</div>
+          <div class="prfeat y">Payout Certainty Fund access</div>
+          <div class="prfeat y">Merchant reconciliation tools</div>
+          <div class="prfeat y">CBN complaint generation</div>
+          <div class="prfeat n">Merchant of Record</div>
+        </div>
+        <button class="btn btn-gold btn-full" onclick="openModal('signup')">Start Pro free for 30 days →</button>
+      </div>
+      <div class="price-card rv d2">
+        <div class="price-tier">Business</div>
+        <div class="price-amt"><sup>₦</sup>19,900</div>
+        <div class="price-period">per month · billed monthly</div>
+        <div class="price-desc">For businesses, cooperatives, and market associations managing large payment volumes.</div>
+        <div class="price-feats">
+          <div class="prfeat y">Everything in Pro</div>
+          <div class="prfeat y">Merchant of Record service</div>
+          <div class="prfeat y">FX settlement at real rates</div>
+          <div class="prfeat y">Intra-Africa payment corridors</div>
+          <div class="prfeat y">API access for integrations</div>
+          <div class="prfeat y">Dedicated account manager</div>
+          <div class="prfeat y">24h priority dispute handling</div>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="openModal('signup')">Talk to sales →</button>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px;">+ 1.5% per transaction for Merchant of Record · 0.8% per Intra-Africa transfer · No setup fees ever · 🔒 Secured by Paystack SSL</p>
+  </div>
+</section>
+
+<!-- ████ CTA ████ -->
+<section id="cta" class="sec">
+  <div class="cta-glow"></div>
+  <div class="wrap">
+    <div class="cta-inner rv">
+      <span class="eyebrow" style="text-align:center;">Ready to start?</span>
+      <h2 class="h2" style="margin-bottom:14px;text-align:center;">Your money deserves<br>a trust layer.</h2>
+      <p class="lead cta-inner">Join thousands of Nigerians building savings circles, resolving disputes, and building credit histories — all in one platform.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-gold btn-lg" onclick="openModal('signup')">Create free account →</button>
+        <button class="btn btn-outline btn-lg" onclick="toast('Demo coming soon — sign up to be notified!','gold')">Watch demo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ FOOTER ████ -->
+<!-- ████ CONTACT SECTION ████ -->
+<section id="contact" class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head sec-center rv">
+      <span class="eyebrow">Get in touch</span>
+      <h2 class="h2" style="margin-bottom:10px;">Talk to the founder</h2>
+      <p class="lead sec-center">Have a question, partnership idea, or want to join the beta? Reach out directly.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:0 auto;" class="rv d1">
+      <a href="tel:09067306804" class="contact-tile">
+        <div class="ct-ico">📞</div>
+        <div class="ct-lbl">Call us</div>
+        <div class="ct-val">09067306804</div>
+      </a>
+      <a href="mailto:josepholumide53@gmail.com" class="contact-tile">
+        <div class="ct-ico">📧</div>
+        <div class="ct-lbl">Email us</div>
+        <div class="ct-val">josepholumide53@gmail.com</div>
+      </a>
+      <a href="https://twitter.com/Olumide_el" target="_blank" rel="noopener" class="contact-tile">
+        <div class="ct-ico">𝕏</div>
+        <div class="ct-lbl">Twitter / X</div>
+        <div class="ct-val">@Olumide_el</div>
+      </a>
+      <a href="https://instagram.com/Olumideel" target="_blank" rel="noopener" class="contact-tile">
+        <div class="ct-ico">📸</div>
+        <div class="ct-lbl">Instagram</div>
+        <div class="ct-val">@Olumideel</div>
+      </a>
+    </div>
+    <div style="max-width:640px;margin:32px auto 0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rx);padding:28px;" class="rv d2">
+      <div style="font-size:15px;font-weight:700;margin-bottom:18px;">Send a message</div>
+      <div class="form-2">
+        <div class="fg"><label>Full name</label><input type="text" id="ct-name" placeholder="Amaka Obi"/></div>
+        <div class="fg"><label>Phone or email</label><input type="text" id="ct-contact" placeholder="08012345678"/></div>
+        <div class="fg span2"><label>Message</label><textarea id="ct-msg" rows="3" placeholder="Tell us what you're building or ask anything…"></textarea></div>
+      </div>
+      <button class="btn btn-gold btn-full" onclick="sendContactMsg()">Send message →</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="fg-grid">
+      <div>
+        <div class="logo"><div class="lmark">🏦</div><div class="lname">Ajo<span>Vault</span></div></div>
+        <p class="fb-desc">Nigeria's trust layer for money. Digital ajo, settlement tracking, dispute resolution, and merchant tools — in one platform built for Africa.</p>
+        <div class="fsoc">
+          <a href="https://twitter.com/Olumide_el" target="_blank" rel="noopener" class="fsoc-btn" title="Twitter / X">𝕏</a>
+          <a href="https://instagram.com/Olumideel" target="_blank" rel="noopener" class="fsoc-btn" title="Instagram">📸</a>
+          <a href="mailto:josepholumide53@gmail.com" class="fsoc-btn" title="Email">✉️</a>
+          <a href="tel:09067306804" class="fsoc-btn" title="Phone">📞</a>
+        </div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px;">
+          <a href="tel:09067306804" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color var(--t);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">📞 09067306804</a>
+          <a href="mailto:josepholumide53@gmail.com" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color var(--t);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">✉️ josepholumide53@gmail.com</a>
+        </div>
+      </div>
+      <div class="fcol"><h4>Platform</h4><ul>
+        <li><a href="#modules">Digital Ajo</a></li>
+        <li><a href="#modules">Settlement Tracker</a></li>
+        <li><a href="#modules">Dispute Resolution</a></li>
+        <li><a href="#modules">Merchant Tools</a></li>
+        <li><a href="#modules">AjoScore™</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Company</h4><ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press kit</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Connect</h4><ul>
+        <li><a href="https://twitter.com/Olumide_el" target="_blank" rel="noopener">𝕏 @Olumide_el</a></li>
+        <li><a href="https://instagram.com/Olumideel" target="_blank" rel="noopener">📸 @Olumideel</a></li>
+        <li><a href="mailto:josepholumide53@gmail.com">✉️ Email us</a></li>
+        <li><a href="tel:09067306804">📞 09067306804</a></li>
+        <li><a href="#">Privacy policy</a></li>
+      </ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 AjoVault. All rights reserved. Built for Nigeria, for Africa.</span>
+      <span>Powered by Paystack & Flutterwave rails · CBN compliant by design</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ████ AUTH MODAL ████ -->
+<div id="modal-wrap" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title">Create your account</div>
+    <div class="modal-sub" id="modal-sub">Free forever. No credit card needed.</div>
+    <div class="auth-tabs">
+      <div class="atab on" id="at-signup" onclick="switchAuth('signup')">Sign Up</div>
+      <div class="atab" id="at-login" onclick="switchAuth('login')">Log In</div>
+    </div>
+    <div id="form-signup">
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">I am a…</div>
+        <div class="role-row">
+          <div class="role-opt on" onclick="pickRole(this,'saver')"><div class="role-ico">💰</div><div class="role-lbl">Saver</div></div>
+          <div class="role-opt" onclick="pickRole(this,'merchant')"><div class="role-ico">🛒</div><div class="role-lbl">Merchant</div></div>
+          <div class="role-opt" onclick="pickRole(this,'organiser')"><div class="role-ico">👥</div><div class="role-lbl">Organiser</div></div>
+        </div>
+      </div>
+      <div class="modal-form">
+        <div class="fg"><label>Full name</label><input type="text" id="su-name" placeholder="Amaka Obi"/></div>
+        <div class="fg"><label>Phone number</label><input type="tel" id="su-phone" placeholder="08012345678"/></div>
+        <div class="fg"><label>Email address</label><input type="email" id="su-email" placeholder="amaka@email.com"/></div>
+        <div class="fg"><label>Password</label><input type="password" id="su-pass" placeholder="Choose a strong password (min 6 chars)"/></div>
+        <button class="btn btn-gold btn-full" onclick="doSignup()">Create account →</button>
+        <p class="modal-note">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+    </div>
+    <div id="form-login" style="display:none;">
+      <div class="modal-form">
+        <div class="fg"><label>Phone or email</label><input type="text" id="li-id" placeholder="08012345678 or email"/></div>
+        <div class="fg"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••"/></div>
+        <button class="btn btn-gold btn-full" onclick="doLogin()">Log in →</button>
+        <p class="modal-note"><a href="#" onclick="toast('Password reset link sent to your email','gold')">Forgot password?</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ████ TOAST ████ -->
+<div id="toast-wrap"></div>
+
+<!-- ████ SUPABASE + PAYSTACK ████ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════
+   AJOVAULT — COMPLETE APP LOGIC
+   ═══════════════════════════════════════════════
+   TO GO LIVE:
+   1. Replace SUPABASE_URL + SUPABASE_KEY with your project values
+   2. Replace PAYSTACK_KEY with your Paystack public key
+   3. Run schema.sql in your Supabase SQL Editor
+   ═══════════════════════════════════════════════ */
+
+const SUPABASE_URL = 'https://jkvxhwnpjsgtybtzmwbi.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imprdnhod25wanNndHlidHptd2JpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTg0MTAsImV4cCI6MjA5OTE3NDQxMH0.3ewmotBqEgjZOizC_Znzq8ZkzpnzMrJv-4ffN8VG72E';
+const PAYSTACK_KEY = 'pk_live_710c512f333ba43c2e0fc6a0b15e2defed2bfdc3';
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ─── APP STATE ────────────────────────────────────────────────────
+const APP = {
+  user: null,
+  role: 'saver',
+};
+
+// ─── INIT ─────────────────────────────────────────────────────────
+async function appInit() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    APP.user = session.user;
+    showLoggedIn(session.user);
+  }
+  sb.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN') { APP.user = session.user; showLoggedIn(session.user); }
+    if (event === 'SIGNED_OUT') { APP.user = null; showLoggedOut(); }
+  });
+  buildMonthGrid();
+  buildNotifs();
+}
+
+function showLoggedIn(user) {
+  document.getElementById('nav-auth').style.display = 'none';
+  document.getElementById('nav-icons').style.display = 'flex';
+  const initials = (user.user_metadata?.full_name || user.email || 'U').slice(0,2).toUpperCase();
+  document.getElementById('pp-av').textContent = initials;
+  document.getElementById('pp-name').textContent = user.user_metadata?.full_name || user.email;
+}
+
+function showLoggedOut() {
+  document.getElementById('nav-auth').style.display = 'flex';
+  document.getElementById('nav-icons').style.display = 'none';
+  document.getElementById('notif-panel').classList.remove('op');
+  document.getElementById('profile-panel').classList.remove('op');
+}
+
+// ─── AUTH ─────────────────────────────────────────────────────────
+async function doSignup() {
+  const name  = document.getElementById('su-name').value.trim();
+  const phone = document.getElementById('su-phone').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const pass  = document.getElementById('su-pass').value;
+  if (!name || !phone || !email || !pass) { toast('Please fill in all fields', 'error'); return; }
+  if (pass.length < 6) { toast('Password must be at least 6 characters', 'error'); return; }
+
+  const { data, error } = await sb.auth.signUp({
+    email, password: pass,
+    options: { data: { full_name: name, phone, role: APP.role } }
+  });
+  if (error) { toast(error.message, 'error'); return; }
+  if (!data.session) {
+    toast('Check your email to verify your account ✉️', 'gold');
+    closeModal(); return;
+  }
+  closeModal();
+  toast(`Welcome to AjoVault, ${name.split(' ')[0]}! 🎉`, 'success');
+}
+
+async function doLogin() {
+  const id   = document.getElementById('li-id').value.trim();
+  const pass = document.getElementById('li-pass').value;
+  if (!id || !pass) { toast('Please fill in all fields', 'error'); return; }
+  const { error } = await sb.auth.signInWithPassword({ email: id, password: pass });
+  if (error) { toast(error.message.includes('Invalid') ? 'Incorrect email or password' : error.message, 'error'); return; }
+  closeModal();
+  toast('Welcome back! 👋', 'success');
+}
+
+async function doLogout() {
+  closeProfile();
+  await sb.auth.signOut();
+  toast('Logged out successfully', '');
+}
+
+// ─── PAYSTACK PAYMENT ─────────────────────────────────────────────
+function paystackPay(circleName, amountKobo) {
+  if (!APP.user) { openModal('signup'); return; }
+  if (PAYSTACK_KEY === 'YOUR_PAYSTACK_PUBLIC_KEY') {
+    toast('₦' + (amountKobo/100).toLocaleString() + ' contribution recorded for ' + circleName + ' ✓', 'success');
+    return;
+  }
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_KEY,
+    email: APP.user.email,
+    amount: amountKobo,
+    currency: 'NGN',
+    ref: 'AJV-' + Date.now(),
+    metadata: { circle_name: circleName, user_id: APP.user.id },
+    callback: async function(res) {
+      await sb.from('contributions').insert({
+        user_id: APP.user.id,
+        amount: amountKobo / 100,
+        paystack_ref: res.reference,
+        status: 'confirmed'
+      });
+      toast('₦' + (amountKobo/100).toLocaleString() + ' confirmed for ' + circleName + ' ✓', 'success');
+    },
+    onClose: function() { toast('Payment cancelled', ''); }
+  });
+  handler.openIframe();
+}
+
+// ─── CREATE CIRCLE ────────────────────────────────────────────────
+async function createCircle() {
+  if (!APP.user) { openModal('signup'); return; }
+  const name    = document.getElementById('c-name').value.trim();
+  const typeRaw = document.getElementById('c-type').value;
+  const amtRaw  = document.getElementById('c-amount').value.replace(/[^0-9]/g,'');
+  const members = parseInt(document.getElementById('c-members').value) || 2;
+  const typeMap = { 'Rotating (Ajo)':'rotating','Target savings':'target','Emergency fund':'emergency' };
+
+  if (!name || !amtRaw) { toast('Please fill in circle name and amount', 'error'); return; }
+
+  const { error } = await sb.from('circles').insert({
+    name, type: typeMap[typeRaw] || 'rotating',
+    amount: parseInt(amtRaw),
+    frequency: document.getElementById('c-freq').value.toLowerCase(),
+    total_members: members, organiser_id: APP.user.id
+  });
+
+  if (error) { toast(error.message, 'error'); return; }
+  toast('Circle "' + name + '" created! Invitations sent via SMS 🎉', 'success');
+  ['c-name','c-amount','c-members','c-phones'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+}
+
+// ─── OPEN DISPUTE ─────────────────────────────────────────────────
+async function openDisputeFromTracker() {
+  if (!APP.user) { openModal('signup'); return; }
+  const deadline = new Date(Date.now() + 48*60*60*1000).toISOString();
+  const cbnRef   = 'CBN/' + new Date().getFullYear() + '/' + String(Date.now()).slice(-6);
+  const { error } = await sb.from('disputes').insert({
+    user_id: APP.user.id, processor: 'Flutterwave',
+    amount: 284500, reference: 'FLW-TXN-2847291',
+    description: 'Settlement withheld for 3 days without communication',
+    status: 'open', sla_deadline: deadline, cbn_ref: cbnRef
+  });
+  if (error) { toast(error.message, 'error'); return; }
+  toast('Dispute opened. CBN ref: ' + cbnRef, 'success');
+  switchModule('dispute', document.querySelectorAll('.mtab')[2]);
+}
+
+function newDispute() {
+  if (!APP.user) { openModal('signup'); return; }
+  toast('New dispute case DSP-0042 opened ✓', 'success');
+}
+
+function addDispNote() {
+  const note = document.getElementById('disp-note').value.trim();
+  if (!note) { toast('Please type a note first', 'error'); return; }
+  toast('Note added to DSP-0041 ✓', 'gold');
+  document.getElementById('disp-note').value = '';
+}
+
+// ─── SETTLEMENT TRACKER ───────────────────────────────────────────
+function selTx(el, ref, amount, processor, status, subtitle) {
+  document.querySelectorAll('.tx-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('td-ref').textContent   = ref + ' · ' + processor;
+  document.getElementById('td-amt').textContent   = amount;
+  document.getElementById('td-proc').textContent  = subtitle;
+}
+
+// ─── DISPUTE LIST ─────────────────────────────────────────────────
+function selDisp(el) {
+  document.querySelectorAll('.disp-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+// ─── MODULE TABS ─────────────────────────────────────────────────
+function switchModule(id, btn) {
+  document.querySelectorAll('.mcontent').forEach(c => c.classList.remove('on'));
+  document.querySelectorAll('.mtab').forEach(b => b.classList.remove('on'));
+  document.getElementById('mod-' + id).classList.add('on');
+  if (btn) btn.classList.add('on');
+  document.getElementById('modules').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── NOTIFICATIONS ────────────────────────────────────────────────
+const NOTIFS = [
+  { ico:'💰', title:'Payout confirmed', body:'Amaka received ₦144,000 from Eko Market Women circle', time:'2 min ago', unread:true },
+  { ico:'⚠️', title:'Settlement delayed', body:'Flutterwave ₦284,500 — 3 days overdue. Dispute auto-opened.', time:'1 hr ago', unread:true },
+  { ico:'👥', title:'New circle member', body:'Fatima Kolo joined School Fees Save circle', time:'3 hrs ago', unread:true },
+  { ico:'✅', title:'Contribution confirmed', body:'Your ₦10,000 to School Fees Save was received', time:'Yesterday', unread:false },
+  { ico:'🏆', title:'AjoScore improved', body:'Your score rose from 721 to 742 — new loan offers unlocked!', time:'2 days ago', unread:false },
+];
+
+function buildNotifs() {
+  const body = document.getElementById('np-body');
+  body.innerHTML = NOTIFS.map(n => `
+    <div class="ni-item ${n.unread?'unread':''}">
+      <div class="ni-ico">${n.ico}</div>
+      <div class="ni-info">
+        <div class="ni-title">${n.title}</div>
+        <div class="ni-body">${n.body}</div>
+        <div class="ni-time">${n.time}</div>
+      </div>
+      ${n.unread ? '<div class="ni-dot"></div>' : ''}
+    </div>`).join('');
+}
+
+function toggleNotif() {
+  document.getElementById('notif-panel').classList.toggle('op');
+  document.getElementById('profile-panel').classList.remove('op');
+}
+function toggleProfile() {
+  document.getElementById('profile-panel').classList.toggle('op');
+  document.getElementById('notif-panel').classList.remove('op');
+}
+function closeProfile() { document.getElementById('profile-panel').classList.remove('op'); }
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#notif-panel') && !e.target.closest('#notif-btn'))
+    document.getElementById('notif-panel').classList.remove('op');
+  if (!e.target.closest('#profile-panel') && !e.target.closest('#profile-btn'))
+    document.getElementById('profile-panel').classList.remove('op');
+  if (!e.target.closest('.modal') && !e.target.closest('.btn'))
+    {} // modal handled by overlay click
+});
+
+// ─── CREDIT HISTORY CHART ────────────────────────────────────────
+function buildMonthGrid() {
+  const months = ['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'];
+  const paid   = [100,100,100,80,100,100,100,90,100,100,100,100];
+  const grid   = document.getElementById('month-grid');
+  if (!grid) return;
+  grid.innerHTML = months.map((m,i) => {
+    const miss = paid[i] < 100;
+    return `<div class="mo">
+      <div class="mo-bwrap"><div class="mo-bar ${miss?'miss':'paid'}" style="height:${paid[i]*0.52}px"></div></div>
+      <div class="mo-lbl">${m}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── AUTH MODAL ──────────────────────────────────────────────────
+function openModal(tab) {
+  switchAuth(tab);
+  document.getElementById('modal-wrap').classList.add('op');
+}
+function closeModal() { document.getElementById('modal-wrap').classList.remove('op'); }
+function switchAuth(tab) {
+  const su = tab === 'signup';
+  document.getElementById('at-signup').classList.toggle('on', su);
+  document.getElementById('at-login').classList.toggle('on', !su);
+  document.getElementById('form-signup').style.display = su ? '' : 'none';
+  document.getElementById('form-login').style.display  = su ? 'none' : '';
+  document.getElementById('modal-title').textContent = su ? 'Create your account' : 'Welcome back';
+  document.getElementById('modal-sub').textContent   = su ? 'Free forever. No credit card needed.' : 'Log in to your AjoVault account';
+}
+function pickRole(el, role) {
+  document.querySelectorAll('.role-opt').forEach(r => r.classList.remove('on'));
+  el.classList.add('on');
+  APP.role = role;
+}
+
+// ─── NAV & MOBILE ────────────────────────────────────────────────
+const ham = document.getElementById('ham');
+const mm  = document.getElementById('mm');
+ham.addEventListener('click', () => { ham.classList.toggle('op'); mm.classList.toggle('op'); });
+function cmm() { ham.classList.remove('op'); mm.classList.remove('op'); }
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('sc', window.scrollY > 10);
+  const secs = ['hero','modules','how','trust','pricing','cta'];
+  let cur = '';
+  secs.forEach(id => { const el = document.getElementById(id); if (el && window.scrollY >= el.offsetTop - 100) cur = id; });
+  document.querySelectorAll('.nlinks a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#'+cur));
+}, { passive: true });
+
+// ─── SCROLL REVEAL ───────────────────────────────────────────────
+const ro = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); }
+}), { threshold: 0.1 });
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// ─── TOAST ───────────────────────────────────────────────────────
+function toast(msg, type = '') {
+  const c = document.getElementById('toast-wrap');
+  const t = document.createElement('div');
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ─── USSD ────────────────────────────────────────────────────────
+function showUSSD() {
+  toast('Dial *346*7# on any Nigerian phone — no internet needed 📱', 'gold');
+}
+
+// ─── CONTACT FORM ────────────────────────────────────────────────
+function sendContactMsg() {
+  const name    = document.getElementById('ct-name').value.trim();
+  const contact = document.getElementById('ct-contact').value.trim();
+  const msg     = document.getElementById('ct-msg').value.trim();
+  if (!name || !contact || !msg) { toast('Please fill in all fields', 'error'); return; }
+  // In production: POST to Formspree or your backend
+  toast('Message sent! Joseph will reply within 24 hours 🎉', 'success');
+  document.getElementById('ct-name').value = '';
+  document.getElementById('ct-contact').value = '';
+  document.getElementById('ct-msg').value = '';
+}
+
+// ─── BOOT ────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', appInit);
+</script>
+</body>
+</html>
